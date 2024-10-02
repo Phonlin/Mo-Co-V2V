@@ -1,28 +1,19 @@
-# 3D_detection
-This work is inspired by image-to-3d-bbox(https://github.com/experiencor/image-to-3d-bbox), which is an an implementation of the paper "3D Bounding Box Estimation Using Deep Learning and Geometry" (https://arxiv.org/abs/1612.00496).
+The implementation is based on the theory of "3D Bounding Box Estimation Using Deep Learning and Geometry" by Arsalan Mousavian, Dragomir Anguelov, John Flynn, Jana Kosecka(https://arxiv.org/abs/1612.00496).
 
-Instead of using kitti's 3-D truth, i mainly make two supplements:    
-1、Compute 3-D box center by 2-D box and network's output  
-2、Compute theta_ray by 2-D box center  
-Besides, I make some changes to the code structure.
+Code modifies the repository "3D_detection" by Cersar(https://github.com/cersar/3D_detection?tab=readme-ov-file).
 
-By now, there are still several problems to be solved, for example:  
-1、The number of situations is 256 in this work, whereas it is 64 in the paper.  
-2、When detecting, i use objects's truncated and occluded level in kitti's label file to decide whether to generate 3D box, whereas it is reasonable to generate these by the trained neural network.
+Thanks lots for their contribution.
 
-This is just a raw version, welcome to share your ideas to improve it!
+<h2>ABSTRACT</h2>
+As autonomous driving technology advances, traditional single-vehicle perception systems may become a bottleneck due to insufficient information or misjudgments in complex road conditions or occlusions. This study aims to predict the 3D positions and orientations of other vehicles using a single-camera vision approach and share this information with other vehicles. By leveraging cameras on other vehicles for cooperative perception, we achieve a broader field of view and better recognition capabilities, maximizing driving safety. The implementation is based on the theory of "3D Bounding Box Estimation Using Deep Learning and Geometry" and modifies the repository "3D_detection" shared by Cersar on GitHub. Our proposed method uses deep learning and 2D geometry to predict 3D bounding boxes and angles from a single camera. When getting the position and angle of the vehicle, we convert it into a bird's eye view (BEV), and all the information generated in this process will be shared with other vehicles. When the camera on any vehicle is occluded, the vehicle’s BEV will still display the correct location and direction information of other vehicles. By using this method, it was found that the angle can be effectively restored when the target vehicle is occluded, with a recognition accuracy as high as 98.89% for the vehicle's side and a minimum of 95.28% for the front and rear. 
 
-Result on kitti:  
-![000254.jpg](https://github.com/cersar/3D_detection/blob/master/output/000254.jpg)  
-![000074.jpg](https://github.com/cersar/3D_detection/blob/master/output/000074.jpg)  
-![000154.jpg](https://github.com/cersar/3D_detection/blob/master/output/000154.jpg)  
-## Useage:
-
-If you want to train, after fixing paths in the train.py, just run:
-<pre><code>python3 train.py
+<h2>Useage</h2>
+For video 3D bboxex compute, use:
+<pre><code>python3 detection_video.py
 </code></pre>
-In this way, you can get your own weights file, or you can download the pretrained file from  https://pan.cstcloud.cn/web/share.html?hash=7dct49xER5w  
-In the detection time, after fixing paths in the detection.py, just run:
-<pre><code>python3 detection.py
+For single camera streaming, use:<br>
+<pre><code>python3 detection_stream.py
 </code></pre>
-
+For two camera streaming, use:<br>
+<pre><code>python3 detection_stream_for2.py
+</code></pre>
